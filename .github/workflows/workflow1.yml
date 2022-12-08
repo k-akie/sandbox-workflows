@@ -1,9 +1,6 @@
 on:
   push:
-    # develop以降は同じ状態のはずなのでbuildしない
-    branches-ignore:
-      - staging
-      - master
+    branches: ["master"]
 
 name: workflow1
 
