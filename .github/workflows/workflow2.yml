@@ -1,0 +1,29 @@
+on:
+  workflow_run:
+    # マージ時のbuild完了後にdeployする
+    workflows: ["workflow1"]
+    branches: ["master"]
+    types: completed
+  workflow_dispatch:
+    inputs:
+      commit-hash:
+        description: "コミットハッシュを指定してください"
+        required: true
+
+name: workflow2
+
+jobs:
+  job1:
+    name: workflow2 - job1
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set variable for workflow_run trigger
+        if: ${{ github.event_name == 'workflow_run' }}
+        run: |
+          echo $GITHUB_SHA 
+          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ github.sha }}
+          echo `commit-hash=$GITHUB_SHA` >> $GITHUB_ENV
+      - name: set variable for workflow_dispatch trigger
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "commit-hash=${{ github.event.inputs.commit-hash }}" >> $GITHUB_ENV

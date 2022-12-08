@@ -1,0 +1,19 @@
+on:
+  push:
+    # develop以降は同じ状態のはずなのでbuildしない
+    branches-ignore:
+      - staging
+      - master
+
+name: workflow1
+
+jobs:
+  job1:
+    name: workflow1 - job1
+    runs-on: ubuntu-20.04
+    steps:
+      - name: echo commit sha
+        run: |
+          echo $GITHUB_SHA 
+          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ github.sha }}
