@@ -32,4 +32,4 @@ jobs:
         run: |
           echo ${{ env.commit-hash }}
           commit_sha="${{ (github.event.inputs && github.event.inputs.commit-hash) || github.sha }}"
-          echo ${{ commit_sha }}
+          echo $commit_sha
