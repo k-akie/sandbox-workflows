@@ -31,4 +31,5 @@ jobs:
       - name: echo commit sha
         run: |
           echo ${{ env.commit-hash }}
-          echo ${{ (github.event.inputs && github.event.inputs.commit-hash) || github.sha }}
+          commit-hash=${{ (github.event.inputs && github.event.inputs.commit-hash) || github.sha }}
+          echo ${{ commit-hash }}
